@@ -1,6 +1,22 @@
-"""Distinct Python example #29."""
-import re,sys
-p=Path(sys.argv[1]) if False else None
-text=open(sys.argv[1],encoding="utf-8").read()
-for target in re.findall(r"!?\[[^]]*\]\(([^)]+)\)",text):
- if "://" not in target and target and not __import__("os").path.exists(target.split("#")[0]):print("missing",target)
+"""Report broken relative links in a Markdown document."""
+from pathlib import Path
+import re
+import sys
+
+LINK_PATTERN = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
+
+def broken_links(markdown_file: Path) -> list[str]:
+    text = markdown_file.read_text(encoding="utf-8")
+    missing = []
+    for raw_target in LINK_PATTERN.findall(text):
+        target = raw_target.strip().split("#", 1)[0]
+        if not target or "://" in target or target.startswith("mailto:"):
+            continue
+        if not (markdown_file.parent / target).exists():
+            missing.append(raw_target.strip())
+    return missing
+
+if __name__ == "__main__":
+    path = Path(sys.argv[1])
+    for target in broken_links(path):
+        print("Missing:", target)

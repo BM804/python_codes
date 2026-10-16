@@ -1,7 +1,26 @@
-"""Distinct Python example #18."""
+"""Topologically order a directed acyclic graph with Kahn's algorithm."""
 from collections import deque
-g={"compile":["test"],"test":["ship"],"docs":["ship"]}; nodes=set(g)|{x for v in g.values() for x in v}; d={x:sum(x in v for v in g.values()) for x in nodes}; q=deque(x for x in nodes if d[x]==0); out=[]
-while q:
- u=q.popleft();out.append(u)
- for v in g.get(u,[]):d[v]-=1; q.append(v) if d[v]==0 else None
-print(out)
+
+def topological_sort(graph: dict[str, list[str]]) -> list[str]:
+    nodes = set(graph)
+    for neighbors in graph.values():
+        nodes.update(neighbors)
+    indegree = {node: 0 for node in nodes}
+    for neighbors in graph.values():
+        for neighbor in neighbors:
+            indegree[neighbor] += 1
+    queue = deque(node for node in nodes if indegree[node] == 0)
+    order = []
+    while queue:
+        node = queue.popleft()
+        order.append(node)
+        for neighbor in graph.get(node, []):
+            indegree[neighbor] -= 1
+            if indegree[neighbor] == 0:
+                queue.append(neighbor)
+    if len(order) != len(nodes):
+        raise ValueError("Graph contains a cycle")
+    return order
+
+if __name__ == "__main__":
+    print(topological_sort({"compile": ["test"], "test": ["ship"], "docs": ["ship"]}))
