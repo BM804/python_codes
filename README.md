@@ -1,6 +1,6 @@
 # Python Code Collection
 
-A set of 45 standalone Python examples, progressing from core programming exercises to algorithms, data structures, concurrency, and practical file tools.
+A set of 50 standalone Python examples, progressing from core programming exercises to algorithms, data structures, concurrency, and practical file tools.
 
 ## Getting started
 
@@ -9,6 +9,7 @@ Use Python 3.10 or newer. Most scripts use only the standard library.
 ```console
 python 01_fizzbuzz.py
 python 17_dijkstra.py
+python 46_two_sum.py
 ```
 
 Some utilities accept a file path or URL as a command-line argument; inspect the top of the script before running it. `43_palette.py` optionally uses Pillow. The JWT example decodes a token payload for inspection and does not verify the signature.
@@ -62,6 +63,11 @@ Some utilities accept a file path or URL as a command-line argument; inspect the
 | [43_palette.py](./43_palette.py) | image palette (Pillow) |
 | [44_http_checker.py](./44_http_checker.py) | HTTP status check |
 | [45_genetic_bits.py](./45_genetic_bits.py) | genetic algorithm demo |
+| [46_two_sum.py](./46_two_sum.py) | two sum |
+| [47_valid_parentheses.py](./47_valid_parentheses.py) | balanced brackets with a stack |
+| [48_reverse_linked_list.py](./48_reverse_linked_list.py) | reverse a linked list |
+| [49_merge_sorted_lists.py](./49_merge_sorted_lists.py) | merge sorted lists |
+| [50_remove_duplicates.py](./50_remove_duplicates.py) | remove duplicates from a sorted list |
 
 ## Contributing
 
